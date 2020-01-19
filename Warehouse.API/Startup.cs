@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using Warehouse.Infrastructure.Data;
 
 namespace Warehouse.API
 {
@@ -25,6 +27,9 @@ namespace Warehouse.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<WarehouseDBContext>(opt=>
+            opt.UseSqlServer(Configuration.GetConnectionString("WarehouseDBConnection"))
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
