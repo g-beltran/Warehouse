@@ -88,8 +88,15 @@ namespace Warehouse.API.Controllers
             if (item.StockQuantity < order.Quantity)
                 return new ConflictResult();
 
-            item.StockQuantity = item.StockQuantity - order.Quantity;
+            var userExists = _context.User.Any(x => x.Id == order.UserId);
+
+            if (!userExists)
+                return new ForbidResult();
+
+
+            item.StockQuantity -= order.Quantity;
             order.Modified = DateTime.Now;
+            order.Status = (int)Enumerations.OrderStatus.Active;
 
             _context.Entry(item).State = EntityState.Modified;
             _context.Order.Add(order);
@@ -109,7 +116,36 @@ namespace Warehouse.API.Controllers
                 return NotFound();
             }
 
+            var item = _context.Item.FirstOrDefault(x => x.Sku.ToLower() == order.Sku.ToLower());
+
             _context.Order.Remove(order);
+
+            item.StockQuantity += order.Quantity;
+            _context.Entry(item).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
+
+            return order;
+        }
+
+        [HttpPut("Cancel/{id}")]
+        public async Task<ActionResult<Order>> CancelOrder(int id)
+        {
+            var order = await _context.Order.FindAsync(id);
+            if (order == null)
+            {
+                return NotFound();
+            }          
+
+            var item = _context.Item.FirstOrDefault(x => x.Sku.ToLower() == order.Sku.ToLower());
+
+            item.StockQuantity += order.Quantity;
+            order.Status = (int)Enumerations.OrderStatus.Canceled;
+            order.Quantity = 0;
+
+            _context.Entry(order).State = EntityState.Modified;
+            _context.Entry(item).State = EntityState.Modified;
+
             await _context.SaveChangesAsync();
 
             return order;

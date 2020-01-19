@@ -22,7 +22,7 @@ namespace Warehouse.API.Controllers
         }
 
         // GET: api/Item
-        [HttpGet]
+        [HttpGet]        
         public async Task<ActionResult<IEnumerable<Item>>> GetItem()
         {
             return await _context.Item.ToListAsync();
@@ -114,6 +114,25 @@ namespace Warehouse.API.Controllers
             await _context.SaveChangesAsync();
 
             return item;
+        }
+
+        [HttpGet("Available/{maxItems}/{pageNumber}")]
+        public async Task<ActionResult<IEnumerable<Item>>> GetAvailableItems(int maxItems, int pageNumber)
+        {
+            return await _context.Item
+                .Where(x=>x.StockQuantity>0)
+                .OrderBy(x => x.Sku)
+                .Skip(maxItems * (pageNumber - 1))
+                .Take(maxItems)
+                .ToListAsync();            
+        }
+
+        [HttpGet("Search/{sku}")]
+        public async Task<ActionResult<IEnumerable<Item>>> SearchForItem(string sku)
+        {
+            return await _context.Item                
+                .Where(x=>x.Sku.ToLower().StartsWith(sku.ToLower()))                
+                .ToListAsync();
         }
 
         private bool ItemExists(string id)
