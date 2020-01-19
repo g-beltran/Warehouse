@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +23,8 @@ namespace Warehouse.API.Controllers
         }
 
         // GET: api/Item
-        [HttpGet]        
+        [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Item>>> GetItem()
         {
             return await _context.Item.ToListAsync();
@@ -46,6 +48,7 @@ namespace Warehouse.API.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> PutItem(string id, Item item)
         {
             if (id != item.Sku)
@@ -78,6 +81,7 @@ namespace Warehouse.API.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult<Item>> PostItem(Item item)
         {
             _context.Item.Add(item);
@@ -102,6 +106,7 @@ namespace Warehouse.API.Controllers
 
         // DELETE: api/Item/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult<Item>> DeleteItem(string id)
         {
             var item = await _context.Item.FindAsync(id);
@@ -117,6 +122,7 @@ namespace Warehouse.API.Controllers
         }
 
         [HttpGet("Available/{maxItems}/{pageNumber}")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Item>>> GetAvailableItems(int maxItems, int pageNumber)
         {
             return await _context.Item
@@ -128,6 +134,7 @@ namespace Warehouse.API.Controllers
         }
 
         [HttpGet("Search/{sku}")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Item>>> SearchForItem(string sku)
         {
             return await _context.Item                
