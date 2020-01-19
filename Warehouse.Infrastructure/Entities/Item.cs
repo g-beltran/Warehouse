@@ -10,10 +10,9 @@ namespace Warehouse.Infrastructure.Entities
             Order = new HashSet<Order>();
         }
 
-        public int Id { get; set; }
         public string Sku { get; set; }
         public string Description { get; set; }
-        public int Quantity { get; set; }
+        public int StockQuantity { get; set; }
 
         public virtual ICollection<Order> Order { get; set; }
     }

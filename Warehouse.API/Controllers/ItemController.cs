@@ -12,48 +12,48 @@ namespace Warehouse.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderController : ControllerBase
+    public class ItemController : ControllerBase
     {
         private readonly WarehouseDBContext _context;
 
-        public OrderController(WarehouseDBContext context)
+        public ItemController(WarehouseDBContext context)
         {
             _context = context;
         }
 
-        // GET: api/Order
+        // GET: api/Item
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Order>>> GetOrder()
+        public async Task<ActionResult<IEnumerable<Item>>> GetItem()
         {
-            return await _context.Order.ToListAsync();
+            return await _context.Item.ToListAsync();
         }
 
-        // GET: api/Order/5
+        // GET: api/Item/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Order>> GetOrder(int id)
+        public async Task<ActionResult<Item>> GetItem(string id)
         {
-            var order = await _context.Order.FindAsync(id);
+            var item = await _context.Item.FindAsync(id);
 
-            if (order == null)
+            if (item == null)
             {
                 return NotFound();
             }
 
-            return order;
+            return item;
         }
 
-        // PUT: api/Order/5
+        // PUT: api/Item/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutOrder(int id, Order order)
+        public async Task<IActionResult> PutItem(string id, Item item)
         {
-            if (id != order.Id)
+            if (id != item.Sku)
             {
                 return BadRequest();
             }
 
-            _context.Entry(order).State = EntityState.Modified;
+            _context.Entry(item).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace Warehouse.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!OrderExists(id))
+                if (!ItemExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,51 @@ namespace Warehouse.API.Controllers
             return NoContent();
         }
 
-        // POST: api/Order
+        // POST: api/Item
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Order>> PostOrder(Order order)
+        public async Task<ActionResult<Item>> PostItem(Item item)
         {
-            _context.Order.Add(order);
-            await _context.SaveChangesAsync();
+            _context.Item.Add(item);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (ItemExists(item.Sku))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
-            return CreatedAtAction("GetOrder", new { id = order.Id }, order);
+            return CreatedAtAction("GetItem", new { id = item.Sku }, item);
         }
 
-        // DELETE: api/Order/5
+        // DELETE: api/Item/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Order>> DeleteOrder(int id)
+        public async Task<ActionResult<Item>> DeleteItem(string id)
         {
-            var order = await _context.Order.FindAsync(id);
-            if (order == null)
+            var item = await _context.Item.FindAsync(id);
+            if (item == null)
             {
                 return NotFound();
             }
 
-            _context.Order.Remove(order);
+            _context.Item.Remove(item);
             await _context.SaveChangesAsync();
 
-            return order;
+            return item;
         }
 
-        private bool OrderExists(int id)
+        private bool ItemExists(string id)
         {
-            return _context.Order.Any(e => e.Id == id);
+            return _context.Item.Any(e => e.Sku == id);
         }
     }
 }

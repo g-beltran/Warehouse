@@ -25,14 +25,14 @@ namespace Warehouse.Infrastructure.Data
         {
             modelBuilder.Entity<Item>(entity =>
             {
+                entity.HasKey(e => e.Sku)
+                    .HasName("PK__Item__CA1FD3C4F534265D");
+
+                entity.Property(e => e.Sku).HasMaxLength(50);
+
                 entity.Property(e => e.Description)
                     .IsRequired()
                     .HasMaxLength(500);
-
-                entity.Property(e => e.Sku)
-                    .IsRequired()
-                    .HasColumnName("SKU")
-                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<LogOrder>(entity =>
@@ -46,9 +46,13 @@ namespace Warehouse.Infrastructure.Data
             {
                 entity.Property(e => e.Modified).HasColumnType("datetime");
 
-                entity.HasOne(d => d.Item)
+                entity.Property(e => e.Sku)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.HasOne(d => d.SkuNavigation)
                     .WithMany(p => p.Order)
-                    .HasForeignKey(d => d.ItemId)
+                    .HasForeignKey(d => d.Sku)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Item");
 

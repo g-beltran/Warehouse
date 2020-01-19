@@ -36,7 +36,7 @@ namespace Warehouse.API.Tests
                     databaseContext.Order.Add(new Infrastructure.Entities.Order()
                     {
                         Id = i,
-                        ItemId = i,
+                        Sku = "Test"+i.ToString(),
                         Modified = DateTime.Now.AddDays(-1),
                         Status = 1,
                         Quantity = i*2,
