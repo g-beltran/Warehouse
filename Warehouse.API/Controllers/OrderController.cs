@@ -80,7 +80,20 @@ namespace Warehouse.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Order>> PostOrder(Order order)
         {
+            var item = _context.Item.FirstOrDefault(x => x.Sku.ToLower() == order.Sku.ToLower());
+
+            if (item == null)
+                return new ConflictResult();
+
+            if (item.StockQuantity < order.Quantity)
+                return new ConflictResult();
+
+            item.StockQuantity = item.StockQuantity - order.Quantity;
+            order.Modified = DateTime.Now;
+
+            _context.Entry(item).State = EntityState.Modified;
             _context.Order.Add(order);
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetOrder", new { id = order.Id }, order);
