@@ -1,0 +1,484 @@
+{
+	"info": {
+		"_postman_id": "1320c24c-c74b-483b-9e83-018e57c92392",
+		"name": "Warehouse",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "userName",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:57882/api/Login/Auth",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "57882",
+							"path": [
+								"api",
+								"Login",
+								"Auth"
+							]
+						},
+						"description": "Login to get token"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Items",
+			"item": [
+				{
+					"name": "Add new Item",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Sku",
+								"value": "s3s3s3s3s",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Description",
+								"value": "dedededed",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Quantity",
+								"value": "5",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Sku\":\"LGTV001\",\n\t\"Description\":\"LG TV Model 001\",\n\t\"StockQuantity\":50\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:57882/api/Item",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "57882",
+							"path": [
+								"api",
+								"Item"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Items",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNTc5NDk1NzYzLCJpc3MiOiJwZ3MiLCJhdWQiOiJwZ3MifQ.hewY8zguJfXTXv5kj8TFDpC-O8mfYbZB02bVZzyOUAU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:57882/api/Item/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "57882",
+							"path": [
+								"api",
+								"Item",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Item",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTdGFuZGFyZCIsImV4cCI6MTU3OTQ2NDQ5OSwiaXNzIjoicGdzIiwiYXVkIjoicGdzIn0.ZvO0mgUfOrqGlPBotr3uwA4mNW3M0huCI7ycHmU_CNE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:57882/api/Item/LGTV001",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "57882",
+							"path": [
+								"api",
+								"Item",
+								"LGTV001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Item",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNTc5NDk1NzYzLCJpc3MiOiJwZ3MiLCJhdWQiOiJwZ3MifQ.hewY8zguJfXTXv5kj8TFDpC-O8mfYbZB02bVZzyOUAU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Sku\":\"SNPH001\",\n\t\"Description\":\"Samsung Galaxy S20\",\n\t\"StockQuantity\":20\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:57882/api/Item/SNPH001",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "57882",
+							"path": [
+								"api",
+								"Item",
+								"SNPH001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Item",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTdGFuZGFyZCIsImV4cCI6MTU3OTQ2NDQ5OSwiaXNzIjoicGdzIiwiYXVkIjoicGdzIn0.ZvO0mgUfOrqGlPBotr3uwA4mNW3M0huCI7ycHmU_CNE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:57882/api/Item/LGTV002",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "57882",
+							"path": [
+								"api",
+								"Item",
+								"LGTV002"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search SKU",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTdGFuZGFyZCIsImV4cCI6MTU3OTQ2NDQ5OSwiaXNzIjoicGdzIiwiYXVkIjoicGdzIn0.ZvO0mgUfOrqGlPBotr3uwA4mNW3M0huCI7ycHmU_CNE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:57882/api/Item/Search/SO",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "57882",
+							"path": [
+								"api",
+								"Item",
+								"Search",
+								"SO"
+							]
+						},
+						"description": "Search for SKU"
+					},
+					"response": []
+				},
+				{
+					"name": "Available Items",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTdGFuZGFyZCIsImV4cCI6MTU3OTQ2NDQ5OSwiaXNzIjoicGdzIiwiYXVkIjoicGdzIn0.ZvO0mgUfOrqGlPBotr3uwA4mNW3M0huCI7ycHmU_CNE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:57882/api/Item/Available/10/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "57882",
+							"path": [
+								"api",
+								"Item",
+								"Available",
+								"10",
+								"2"
+							]
+						},
+						"description": "First parameter is Max Number of Items\nSecond parameter is Page Number"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Add new Order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNTc5NDk1NzYzLCJpc3MiOiJwZ3MiLCJhdWQiOiJwZ3MifQ.hewY8zguJfXTXv5kj8TFDpC-O8mfYbZB02bVZzyOUAU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Sku\":\"SNPH001\",\n\t\"Quantity\":4,\n\t\"UserId\":1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:57882/api/Order",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "57882",
+							"path": [
+								"api",
+								"Order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Orders",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTdGFuZGFyZCIsImV4cCI6MTU3OTQ2NDQ5OSwiaXNzIjoicGdzIiwiYXVkIjoicGdzIn0.ZvO0mgUfOrqGlPBotr3uwA4mNW3M0huCI7ycHmU_CNE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:57882/api/Order",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "57882",
+							"path": [
+								"api",
+								"Order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:57882/api/Order/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "57882",
+							"path": [
+								"api",
+								"Order",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNTc5NDk1NzYzLCJpc3MiOiJwZ3MiLCJhdWQiOiJwZ3MifQ.hewY8zguJfXTXv5kj8TFDpC-O8mfYbZB02bVZzyOUAU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:57882/api/Order/Cancel/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "57882",
+							"path": [
+								"api",
+								"Order",
+								"Cancel",
+								"2"
+							]
+						},
+						"description": "Changes the status of the Order"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Order",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:57882/api/Order/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "57882",
+							"path": [
+								"api",
+								"Order",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
