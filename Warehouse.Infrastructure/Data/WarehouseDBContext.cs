@@ -37,7 +37,8 @@ namespace Warehouse.Infrastructure.Data
 
             modelBuilder.Entity<LogOrder>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.Id)
+                   .HasName("PK__LogOrder__3214EC07F03F2123");
 
                 entity.Property(e => e.Modified).HasColumnType("datetime");
             });

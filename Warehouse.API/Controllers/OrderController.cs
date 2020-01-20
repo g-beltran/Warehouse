@@ -59,6 +59,17 @@ namespace Warehouse.API.Controllers
 
             _context.Entry(order).State = EntityState.Modified;
 
+            var logOrder = new LogOrder()
+            {
+                Sku = order.Sku,
+                Modified = DateTime.Now,
+                OrderId = order.Id,
+                UserId = order.UserId,
+                Quantity = order.Quantity,
+                Status = order.Status
+            };
+            _context.LogOrder.Add(logOrder);
+
             try
             {
                 await _context.SaveChangesAsync();
@@ -98,15 +109,26 @@ namespace Warehouse.API.Controllers
             if (!userExists)
                 return new ForbidResult();
 
-
             item.StockQuantity -= order.Quantity;
             order.Modified = DateTime.Now;
-            order.Status = (int)Enumerations.OrderStatus.Active;
+            order.Status = (int)Enumerations.OrderStatus.Active;            
 
             _context.Entry(item).State = EntityState.Modified;
             _context.Order.Add(order);
+            _context.SaveChanges();
 
-            await _context.SaveChangesAsync();
+            var logOrder = new LogOrder()
+            {
+                Sku = order.Sku,
+                Modified = DateTime.Now,
+                OrderId = order.Id,
+                UserId = order.UserId,
+                Quantity = order.Quantity,
+                Status = order.Status
+            };
+
+            _context.LogOrder.Add(logOrder);
+            _context.SaveChanges();
 
             return CreatedAtAction("GetOrder", new { id = order.Id }, order);
         }
@@ -150,6 +172,16 @@ namespace Warehouse.API.Controllers
             order.Status = (int)Enumerations.OrderStatus.Canceled;
             order.Quantity = 0;
 
+            var logOrder = new LogOrder()
+            {
+                Sku = order.Sku,
+                Modified = DateTime.Now,
+                OrderId = order.Id,
+                UserId = order.UserId,
+                Quantity = order.Quantity,
+                Status = order.Status
+            };
+            _context.LogOrder.Add(logOrder);
             _context.Entry(order).State = EntityState.Modified;
             _context.Entry(item).State = EntityState.Modified;
 
@@ -161,6 +193,6 @@ namespace Warehouse.API.Controllers
         private bool OrderExists(int id)
         {
             return _context.Order.Any(e => e.Id == id);
-        }
+        }      
     }
 }
