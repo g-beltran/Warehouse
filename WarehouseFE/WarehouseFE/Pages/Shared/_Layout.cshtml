@@ -3,28 +3,22 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WarehouseFE</title>
+    <title>@ViewData["Title"] - The Warehouse</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    @RenderSection("Head", false)
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">WarehouseFE</a>
+                <a class="navbar-brand" asp-area="" asp-page="#">Home</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                    </ul>
+                        aria-expanded="false" aria-label="Toggle navigation">                    
+                </button>     
+                <div style="float:left; display:none" id="divLogOff">
+                    <span id="loggedUser"></span>
+                    <a id="alogoff" href="javascript:void(0);">Log off</a>
                 </div>
             </div>
         </nav>
@@ -37,7 +31,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - WarehouseFE - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2020 - The Warehouse </a>
         </div>
     </footer>
 

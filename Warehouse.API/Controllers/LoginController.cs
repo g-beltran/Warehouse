@@ -29,10 +29,17 @@ namespace Warehouse.API.Controllers
 
             if (token == null)
             {
-                return BadRequest();
+                return Ok(new
+                {
+                    userName,
+                    token=string.Empty
+                });
             }
 
-            return Ok(token);
+            return Ok(new {
+                userName,
+                token
+            });
         }
     }
 }

@@ -52,11 +52,19 @@ namespace Warehouse.API
                     };
                 });
             services.AddSingleton(Configuration);
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(
+               options => options               
+               .AllowAnyOrigin()//To facilitate the test allowing to any origin
+               .AllowAnyMethod()
+               .AllowAnyHeader()               
+           );
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
