@@ -1,0 +1,33 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+    <div class="text-center">
+        <div style="margin-bottom:7px">
+            <div class="input-group">
+                <input type="text" class="form-control" name="skuText" id="skuText" placeholder="Search SKU">
+                <span class="input-group-btn">
+                    <button type="button" id="clearSearch" class="btn btn-secondary">Clear</button>
+                </span>
+            </div>            
+        </div>
+        
+        <table class="table" id="myGrid">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">SKU</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Quantity</th>
+                </tr>
+            </thead>
+            <tbody>                
+            </tbody>
+        </table>
+    </div>
+
+@section Scripts{
+    <script src="~/lib/jquery.cookie.js"></script>
+    <script src="~/js/Index.js"></script>
+}
